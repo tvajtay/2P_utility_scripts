@@ -83,8 +83,11 @@ def badframe_interpolation(index, stack):
                 # Create sequential list of frames to interpolate
                 frames = range(start_frame,i)
 
+                #Stack the two frames to interpolate into a single numpy array
+                interp_frames = np.stack([start_source, end_source])
+
                 #Need to watch out for how the dimensions maintain orientation
-                stack[start_frame:i,:,:] = interpolate(frames,[start_frame, i],[start_source, end_source])
+                interp_seq = interpolate([start_frame, i], interp_frames, frames)
 
             else:
                 if i < max_frames:
